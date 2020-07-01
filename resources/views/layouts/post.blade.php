@@ -9,22 +9,23 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/post" method="POST">
-                    {{-- <div class="form-group">
-                        <label for="exampleFormControlInput1">Categories</label>
-                    <select class="form-control">
-                        <option>Categories</option>
-                    </select>
-                    </div> --}}
+                <form method="POST" action="{{ route('post') }}">
+                    {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Title</label>
-                        <input type="text" class="form-control" name="title" autocomplete="off">
-                        @error('title') {{$message}}@enderror
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" name="title" id ="title"autocomplete="off">
+
+                        @error('title')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                        
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Content</label>
-                        <textarea class="form-control" name="content" rows="3"></textarea>
-                        @error('content') {{$message}}@enderror
+                        <label for="content">Content</label>
+                        <textarea class="form-control" name="content" id="content" rows="3"></textarea>
+                            @error('content') 
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                     </div>
                     @csrf
                 </div>
@@ -36,3 +37,13 @@
         </div>
     </div>
 </div>
+
+@if (count($errors) > 0)
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            
+             $('#staticBackdrop').modal('show');
+        });
+    </script>
+@endif
+
